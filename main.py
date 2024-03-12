@@ -1,6 +1,5 @@
 import streamlit as st
-import os
-from openai import OpenAI
+import openai
 
 with st.sidebar:
     st.title('🤖💬 OpenAI Chatbot')
