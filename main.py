@@ -1,6 +1,8 @@
 import streamlit as st
 from openai import OpenAI
 
+data = 'DATA'
+
 st.button('Hit me')
 st.text("Hello")
 st.download_button('On the dl', data)
@@ -16,5 +18,4 @@ st.text_area('Area for textual entry')
 st.date_input('Date input')
 st.time_input('Time entry')
 st.file_uploader('File uploader')
-st.camera_input()
 st.color_picker('Pick a color')
