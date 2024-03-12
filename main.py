@@ -4,8 +4,8 @@ from openai import OpenAI
 try:
     client = OpenAI(api_key=st.text_input('Enter OpenAI API token:', type='password'),)
     st.success('Proceed to entering your prompt message!', icon='👉')
-except:
-    pass
+except Exception as e:
+    st.text(e)
 
 completion = client.chat.completions.create(
   model="gpt-3.5-turbo",
