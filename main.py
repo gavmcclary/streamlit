@@ -3,6 +3,7 @@ from openai import OpenAI
 
 try:
     client = OpenAI(api_key=st.text_input('Enter OpenAI API token:', type='password'),)
+    st.success('Proceed to entering your prompt message!', icon='👉')
 except:
     pass
 
