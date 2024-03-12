@@ -14,18 +14,25 @@ with st.sidebar:
             st.success('Proceed to entering your prompt message!', icon='👉')
 
 
-with st.chat_message("user"):
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 
-  input = None
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
-  st.write("Hello 👋")
-  input = st.chat_input("Say something")
-  if input == None:
-    st.write("")
-  else:
-    st.write("You said: ", input)
-    st.balloons()
-
-# Code blocks
-with st.echo():
-  print('Code will be executed and printed')
+if prompt := st.chat_input("What is up?"):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+    with st.chat_message("assistant"):
+        message_placeholder = st.empty()
+        full_response = ""
+        for response in openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": m["role"], "content": m["content"]}
+                      for m in st.session_state.messages], stream=True):
+            full_response += response.choices[0].delta.get("content", "")
+            message_placeholder.markdown(full_response + "▌")
+        message_placeholder.markdown(full_response)
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
