@@ -2,17 +2,17 @@ import streamlit as st
 import os
 from openai import OpenAI
 
-client = OpenAI(api_key = ${{ secrets.OPENAI_API_KEY}})
-
-completion = client.chat.completions.create(
-  model="gpt-3.5-turbo",
-  messages=[
-    {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-    {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
-  ]
-)
-
-print(completion.choices[0].message)
+with st.sidebar:
+    st.title('🤖💬 OpenAI Chatbot')
+    if 'OPENAI_API_KEY' in st.secrets:
+        st.success('API key already provided!', icon='✅')
+        openai.api_key = st.secrets['OPENAI_API_KEY']
+    else:
+        openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
+        if not (openai.api_key.startswith('sk-') and len(openai.api_key)==51):
+            st.warning('Please enter your credentials!', icon='⚠️')
+        else:
+            st.success('Proceed to entering your prompt message!', icon='👉')
 
 
 with st.chat_message("user"):
