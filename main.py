@@ -2,7 +2,7 @@ import streamlit as st
 import os
 from openai import OpenAI
 
-client = OpenAI()
+client = OpenAI(api_key = ${{ secrets.OPENAI_API_KEY}})
 
 completion = client.chat.completions.create(
   model="gpt-3.5-turbo",
