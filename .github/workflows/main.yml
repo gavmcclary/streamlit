@@ -4,7 +4,5 @@ on:
 jobs:
   label_issue:
     runs-on: ubuntu-latest
-    steps:
-      - name: Set OpenAI API Key
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
